@@ -4,25 +4,23 @@ import { Products, Navbar } from './components';
 
 const App = () => {
 
-    const [products, setProducts] = useState();
+    const [products, setProducts] = useState([]);
 
     const fetchProducts = async() => {
 
         const { data } = await commerce.products.list();
 
-        setProducts( data )
+        setProducts( data );
     }
 
     useEffect(() => {
         fetchProducts();
     },[]);
 
-    console.log(products);
-
     return (
         <div>
             <Navbar />
-            <Products products/>
+            <Products products={products}/>
         </div>
     )
 }
