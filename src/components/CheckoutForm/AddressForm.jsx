@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 import { commerce } from '../../lib/commerce';
 
-const AddressForm = ({ checkoutToken }) => {
+const AddressForm = ({ checkoutToken, next }) => {
     const [shippingCountries, setShippingCountries] = useState([]);
     const [shippingCountry, setShippingCountry] = useState('');
     const [shippingSubdivisions, setShippingSubdivisions] = useState([]);
@@ -21,7 +21,7 @@ const AddressForm = ({ checkoutToken }) => {
     const options = shippingOptions.map((sO) => ({
         id: sO.id,
         label: `${sO.description} - (${sO.price.formatted_with_symbol})`
-    }))
+    }));
 
     const fetchShippingCountries = async(checkoutTokenId) => {
         const { countries } = await commerce.services.localeListShippingCountries(checkoutTokenId);        
@@ -60,7 +60,7 @@ const AddressForm = ({ checkoutToken }) => {
         <>
             <Typography variant="h6" gutterBottom>Shipping Address</Typography>
             <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit((data) => )}>
+                <form onSubmit={methods.handleSubmit((data) => next({ ...data, shippingCountry, shippingSubdivision, shippingOption }))}>
                     <Grid container spacing={3}>
                         <FormInput required name="firstName" label="First Name"/>
                         <FormInput required name="lastName" label="Last Name"/>
@@ -110,4 +110,4 @@ const AddressForm = ({ checkoutToken }) => {
     );
 };
 
-export default AddressForm
+export default AddressForm;
