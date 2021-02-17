@@ -15,6 +15,7 @@ const FormInput = ({ name, label }) => {
                 name={name}
                 label={label}
                 required
+                defaultValue=""
             />
         </Grid>
     );
